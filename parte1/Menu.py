@@ -14,21 +14,30 @@ ARCHIVO_NOTAS = "notas.csv"   # archivo provisto por la catedra
 
 def cargar_secuencial():
     """Carga manual de las notas de 7 alumnos x 3 trimestres.
-    Cada nota se valida que sea un entero entre 1 y 10."""
+    Cada nota se valida que sea un entero entre 1 y 10.
+    Se inicializan las listas de forma fija sin usar .append()."""
     print("\n-- Carga secuencial --")
-    matriz = []
+    
+    # Inicializamos la matriz con el tamaño fijo de alumnos
+    matriz = [None] * Funciones.CANTIDAD_ALUMNOS
     alumno = 0
+    
     while alumno < Funciones.CANTIDAD_ALUMNOS:
         print("\nAlumno", alumno + 1, ":")
-        fila = []
+        
+        # Inicializamos la fila con el tamaño fijo de trimestres
+        fila = [0] * Funciones.CANTIDAD_TRIMESTRES
         trimestre = 0
+        
         while trimestre < Funciones.CANTIDAD_TRIMESTRES:
             mensaje = "  Nota del trimestre " + str(trimestre + 1) + " (1 a 10): "
             nota = Inputs.pedir_entero_en_rango(mensaje, 1, 10)
-            fila.append(nota)
+            fila[trimestre] = nota  # asignacion directa por indice
             trimestre += 1
-        matriz.append(fila)
+            
+        matriz[alumno] = fila  # asignacion directa por indice
         alumno += 1
+        
     return matriz
 
 
@@ -67,7 +76,7 @@ def opcion_cargar():
 
 def opcion_salir(matriz, cargados, origen):
     """Al salir, si los datos fueron cargados MANUALMENTE, se guardan
-    en un CSV cuyo nombre es la fecha actual."""
+    inmediatamente en un CSV cuyo nombre es la fecha actual."""
     if cargados and origen == "manual":
         nombre = Archivos.guardar_notas_csv(matriz)
         Prints.mostrar_mensaje("\nLos datos se guardaron en el archivo: " + nombre)
