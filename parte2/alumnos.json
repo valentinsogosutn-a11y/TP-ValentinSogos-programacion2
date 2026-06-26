@@ -1,0 +1,66 @@
+[
+    {
+        "legajo": 482917,
+        "nombre": "Mariano",
+        "apellido": "Fernández",
+        "egreso": 1998,
+        "plan": 1991,
+        "nota_promedio": 8.5
+    },
+    {
+        "legajo": 731204,
+        "nombre": "Fernando",
+        "apellido": "González",
+        "egreso": 2005,
+        "plan": 2003,
+        "nota_promedio": 9.2
+    },
+    {
+        "legajo": 615398,
+        "nombre": "Gonzalo",
+        "apellido": "Pérez",
+        "egreso": 2010,
+        "plan": 2003,
+        "nota_promedio": 7.8
+    },
+    {
+        "legajo": 209476,
+        "nombre": "Lucía",
+        "apellido": "Martínez",
+        "egreso": 1995,
+        "plan": 1991,
+        "nota_promedio": 9.7
+    },
+    {
+        "legajo": 854120,
+        "nombre": "Sofía",
+        "apellido": "Gómez",
+        "egreso": 2024,
+        "plan": 2024,
+        "nota_promedio": 9.0
+    },
+    {
+        "legajo": 178643,
+        "nombre": "Diego",
+        "apellido": "Fernández",
+        "egreso": 2001,
+        "plan": 2003,
+        "nota_promedio": 6.5
+    },
+    {
+        "legajo": 503291,
+        "nombre": "Valentina",
+        "apellido": "Ruiz",
+        "egreso": 1999,
+        "plan": 1991,
+        "nota_promedio": 8.8
+    },
+    {
+        "legajo": 962057,
+        "nombre": "Tomás",
+        "apellido": "Díaz",
+        "egreso": 2020,
+        "plan": 2024,
+        "nota_promedio": 9.5
+    }
+]

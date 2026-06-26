@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Archivos CSV generados al salir con carga manual (fecha del día)
+parte1/[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9].csv
+
+# Entornos / editores
+.venv/
+venv/
+.idea/
+.vscode/
