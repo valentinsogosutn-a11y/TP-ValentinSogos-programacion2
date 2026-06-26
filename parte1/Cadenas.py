@@ -75,18 +75,33 @@ def a_entero(cadena):
 
 def separar_por_coma(linea):
     """Separa una linea por comas de forma manual y devuelve una
-    lista con cada campo. Esta es la 'algoritmia de csv' vista en
-    clase: recorrer la linea caracter por caracter y cortar en cada coma."""
-    partes = []
+    lista con cada campo. Se dimensiona la lista de forma fija contando
+    las comas previamente para evitar el uso de .append()."""
+    
+    # Contamos las comas manualmente para saber el tamaño exacto de la lista
+    cantidad_comas = 0
+    i = 0
+    while i < len(linea):
+        if linea[i] == ",":
+            cantidad_comas += 1
+        i += 1
+        
+    # El numero de campos es siempre la cantidad de comas + 1
+    tamano_lista = cantidad_comas + 1
+    partes = [None] * tamano_lista
+    indice_partes = 0
+    
     actual = ""
     i = 0
     while i < len(linea):
         caracter = linea[i]
         if caracter == ",":
-            partes.append(actual)   # se termino un campo
+            partes[indice_partes] = actual   # asignacion directa por indice
+            indice_partes += 1
             actual = ""
         else:
             actual += caracter
         i += 1
-    partes.append(actual)           # el ultimo campo (despues de la ultima coma)
+        
+    partes[indice_partes] = actual   # el ultimo campo
     return partes
