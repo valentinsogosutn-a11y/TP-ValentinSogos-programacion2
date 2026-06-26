@@ -34,16 +34,11 @@ archivo nuevo con la fecha del día (queremos un archivo limpio cada vez).
 
 ## 3. ¿Es importante cerrar un archivo? Justificar.
 
-Sí, es importante. Al cerrar el archivo con `archivo.close()`:
+Sí, es sumamente importante. Al cerrar el archivo de forma explícita mediante la función `.close()` se garantizan tres cosas fundamentales:
 
-- Se **vuelca a disco** lo que estaba en el buffer en memoria. Si no cerramos,
-  parte de lo que “escribimos” podría no quedar realmente guardado.
-- Se **liberan los recursos** del sistema operativo (cada archivo abierto
-  ocupa un descriptor/handle, que son limitados).
-- Se **libera el archivo** para que otros programas o procesos puedan usarlo,
-  y se evitan bloqueos o datos corruptos.
-
-Una alternativa que cierra el archivo automáticamente es usar `with open(...)`.
+- Se **vuelca a disco** todo lo que estaba temporalmente en el buffer de memoria. Si el programa finalizara abruptamente sin cerrar el archivo, los últimos datos escritos podrían perderse por completo.
+- Se **liberan los recursos** lógicos del sistema operativo (ya que la cantidad de descriptores de archivos que un proceso puede mantener abiertos simultáneamente es limitada).
+- Se **desbloquea el archivo**, permitiendo que otros programas o procesos del sistema puedan acceder a él de manera segura, previniendo la corrupción de los datos.
 
 ## 4. ¿Qué es el puntero de un archivo (también llamado posición)?
 
@@ -54,5 +49,5 @@ escribir **la próxima vez**. Se mide en caracteres/bytes desde el comienzo.
 - Con `"r"` arranca en 0 (inicio); con `"a"` arranca al final.
 - Se puede consultar con `tell()` y moverlo manualmente con `seek()`.
 
-Por ejemplo, cuando recorremos el archivo línea por línea con un `for`, el
-puntero va avanzando solo de una línea a la siguiente hasta llegar al final.
+Por ejemplo, cuando recorremos el archivo línea por línea con un bucle, el
+puntero va avanzando de manera progresiva de una línea a la siguiente hasta llegar al final (EOF).
