@@ -1,5 +1,5 @@
 # ============================================================
-#  Menu.py
+#  Menu.py (Parte 2)
 #  Menu de opciones con toda la logica del programa de la Parte 2.
 #  Conecta los modulos Prints, Inputs, Funciones y Archivos.
 # ============================================================
@@ -8,6 +8,8 @@ import Prints
 import Inputs
 import Funciones
 import Archivos
+
+ARCHIVO_ALUMNOS = "alumnos.json"  # Constante del archivo definida en el flujo principal
 
 
 def cargar_manual(lista):
@@ -40,11 +42,12 @@ def submenu_carga(lista):
     opcion = Inputs.pedir_entero_en_rango("Opcion de carga: ", 1, 2)
 
     if opcion == 1:
-        datos = Archivos.leer_alumnos()
+        datos = Archivos.leer_alumnos(ARCHIVO_ALUMNOS)  # Se pasa por parametro
         if len(datos) == 0:
             Prints.mostrar_mensaje("  >> No se encontraron datos en el archivo.")
             return lista, False
-        # Decision tomada: los datos del archivo SOBREESCRIBEN la lista en memoria.
+        
+        # Los datos del archivo SOBREESCRIBEN la lista en memoria.
         nueva_lista = datos.copy()
         Prints.mostrar_mensaje("  >> Se cargaron " + str(len(nueva_lista)) + " alumnos desde el archivo.")
         return nueva_lista, True
@@ -108,8 +111,8 @@ def opcion_salir(lista, cargados):
     Si nunca se cargaron datos, no se toca el archivo para no borrar la
     informacion existente."""
     if cargados:
-        Archivos.guardar_alumnos(lista)
-        Prints.mostrar_mensaje("\nDatos guardados en " + Archivos.ARCHIVO + ".")
+        Archivos.guardar_alumnos(ARCHIVO_ALUMNOS, lista)  # Se pasa nombre y lista por parametro
+        Prints.mostrar_mensaje("\nDatos guardados en " + ARCHIVO_ALUMNOS + ".")
     else:
         Prints.mostrar_mensaje("\nNo se cargaron datos: el archivo no se modifica.")
     Prints.mostrar_mensaje("Programa finalizado. Hasta luego!")
