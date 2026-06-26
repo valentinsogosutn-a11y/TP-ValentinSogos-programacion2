@@ -4,8 +4,8 @@
 #  sobre la matriz de notas.
 #
 #  La matriz es una lista de listas:
-#     - cada fila  = un alumno
-#     - cada columna = un trimestre (0 -> Trim 1, 1 -> Trim 2, 2 -> Trim 3)
+#       - cada fila  = un alumno
+#       - cada columna = un trimestre (0 -> Trim 1, 1 -> Trim 2, 2 -> Trim 3)
 #
 #  No se usan max(), min() ni sum(): se implementan a mano.
 # ============================================================
@@ -16,16 +16,12 @@ CANTIDAD_TRIMESTRES = 3     # trimestres a cargar en la carga secuencial
 
 def crear_matriz_vacia():
     """Crea una matriz de CANTIDAD_ALUMNOS x CANTIDAD_TRIMESTRES
-    llena de ceros (no se usa en la carga, queda como utilitario)."""
-    matriz = []
+    llena de ceros de forma estatica, sin usar .append()."""
+    matriz = [None] * CANTIDAD_ALUMNOS
     i = 0
     while i < CANTIDAD_ALUMNOS:
-        fila = []
-        j = 0
-        while j < CANTIDAD_TRIMESTRES:
-            fila.append(0)
-            j += 1
-        matriz.append(fila)
+        fila = [0] * CANTIDAD_TRIMESTRES
+        matriz[i] = fila
         i += 1
     return matriz
 
@@ -44,13 +40,24 @@ def tiene_nota_menor_a(fila, umbral):
 
 def alumnos_con_nota_menor_a(matriz, umbral):
     """Devuelve una lista con los indices (0..n) de los alumnos que
-    tengan al menos una nota menor al umbral."""
-    indices = []
+    tengan al menos una nota menor al umbral. Sin usar .append()."""
+    # El tamaño maximo posible de alumnos con notas menores al umbral es len(matriz)
+    temporales = [None] * len(matriz)
+    contador = 0
+    
     i = 0
     while i < len(matriz):
         if tiene_nota_menor_a(matriz[i], umbral):
-            indices.append(i)
+            temporales[contador] = i
+            contador += 1
         i += 1
+        
+    # Recortamos la lista al tamaño exacto de elementos encontrados
+    indices = [None] * contador
+    k = 0
+    while k < contador:
+        indices[k] = temporales[k]
+        k += 1
     return indices
 
 
@@ -108,15 +115,15 @@ def trimestres_con_mejor_promedio(matriz):
         - la lista completa de promedios
         - el mejor promedio
         - una lista con los numeros de trimestre (1, 2, 3) que tienen
-          ese mejor promedio (puede haber empate -> mas de uno).
-    Se busca el maximo a mano (sin max())."""
+          ese mejor promedio (puede haber empate).
+    Se gestiona todo de forma fija sin usar .append()."""
     cantidad_trimestres = len(matriz[0])
 
-    # 1) Calcular el promedio de cada trimestre.
-    promedios = []
+    # 1) Calcular el promedio de cada trimestre asignando por indice.
+    promedios = [None] * cantidad_trimestres
     j = 0
     while j < cantidad_trimestres:
-        promedios.append(promedio_columna(matriz, j))
+        promedios[j] = promedio_columna(matriz, j)
         j += 1
 
     # 2) Buscar el mejor promedio recorriendo la lista (sin max()).
@@ -127,12 +134,22 @@ def trimestres_con_mejor_promedio(matriz):
             mejor = promedios[k]
         k += 1
 
-    # 3) Recolectar TODOS los trimestres que igualan el mejor (empates).
-    ganadores = []
+    # 3) Recolectar los trimestres ganadores (el maximo de empates es cantidad_trimestres)
+    temporales_ganadores = [None] * cantidad_trimestres
+    contador_ganadores = 0
+    
     t = 0
     while t < len(promedios):
         if _son_iguales(promedios[t], mejor):
-            ganadores.append(t + 1)   # +1 para mostrar Trimestre 1, 2 o 3
+            temporales_ganadores[contador_ganadores] = t + 1  # +1 para Trimestre 1, 2 o 3
+            contador_ganadores += 1
         t += 1
+
+    # Recortamos la lista al tamaño de ganadores reales
+    ganadores = [None] * contador_ganadores
+    m = 0
+    while m < contador_ganadores:
+        ganadores[m] = temporales_ganadores[m]
+        m += 1
 
     return promedios, mejor, ganadores
